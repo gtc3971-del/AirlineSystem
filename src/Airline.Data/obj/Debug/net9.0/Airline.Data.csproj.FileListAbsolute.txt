@@ -1,0 +1,14 @@
+C:\Windows\system32\AirlineSystem\src\Airline.Data\bin\Debug\net9.0\Airline.Data.deps.json
+C:\Windows\system32\AirlineSystem\src\Airline.Data\bin\Debug\net9.0\Airline.Data.runtimeconfig.json
+C:\Windows\system32\AirlineSystem\src\Airline.Data\bin\Debug\net9.0\Airline.Data.dll
+C:\Windows\system32\AirlineSystem\src\Airline.Data\bin\Debug\net9.0\Airline.Data.pdb
+C:\Windows\system32\AirlineSystem\src\Airline.Data\obj\Debug\net9.0\Airline.Data.csproj.AssemblyReference.cache
+C:\Windows\system32\AirlineSystem\src\Airline.Data\obj\Debug\net9.0\Airline.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Windows\system32\AirlineSystem\src\Airline.Data\obj\Debug\net9.0\Airline.Data.AssemblyInfoInputs.cache
+C:\Windows\system32\AirlineSystem\src\Airline.Data\obj\Debug\net9.0\Airline.Data.AssemblyInfo.cs
+C:\Windows\system32\AirlineSystem\src\Airline.Data\obj\Debug\net9.0\Airline.Data.csproj.CoreCompileInputs.cache
+C:\Windows\system32\AirlineSystem\src\Airline.Data\obj\Debug\net9.0\Airline.Data.dll
+C:\Windows\system32\AirlineSystem\src\Airline.Data\obj\Debug\net9.0\refint\Airline.Data.dll
+C:\Windows\system32\AirlineSystem\src\Airline.Data\obj\Debug\net9.0\Airline.Data.pdb
+C:\Windows\system32\AirlineSystem\src\Airline.Data\obj\Debug\net9.0\Airline.Data.genruntimeconfig.cache
+C:\Windows\system32\AirlineSystem\src\Airline.Data\obj\Debug\net9.0\ref\Airline.Data.dll

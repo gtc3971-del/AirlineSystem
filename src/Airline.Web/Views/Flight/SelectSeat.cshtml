@@ -1,0 +1,60 @@
+@model List<Airline.Web.Models.Seat>
+@{
+    ViewData["Title"] = "Выбор места";
+    var flightId = ViewBag.FlightId;
+}
+
+<div class="container mt-5">
+    <h2>🪑 Выберите место</h2>
+    
+    <div class="mb-3">
+        <span class="badge bg-success me-2">✓ Свободно</span>
+        <span class="badge bg-danger me-2">✗ Занято</span>
+        <span class="badge bg-primary">→ Выбрано</span>
+    </div>
+
+    <form asp-action="BookWithSeat" method="post">
+        <input type="hidden" name="flightId" value="@flightId" />
+        
+        <div class="seat-map">
+            <div class="row mb-2">
+                <div class="col text-center">
+                    <strong>A</strong>&nbsp;&nbsp;<strong>B</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <strong>C</strong>&nbsp;&nbsp;<strong>D</strong>
+                </div>
+            </div>
+            
+            @for (int row = 1; row <= 15; row++)
+            {
+                <div class="row mb-2">
+                    <div class="col text-center">
+                        @foreach (var letter in new[] { "A", "B", "C", "D" })
+                        {
+                            var seatNum = $"{row}{letter}";
+                            var seat = Model.FirstOrDefault(s => s.SeatNumber == seatNum);
+                            var isAvailable = seat != null && seat.Status == "Available";
+                            
+                            <button type="submit" 
+                                    name="selectedSeat" 
+                                    value="@seatNum"
+                                    class="btn @(isAvailable ? "btn-outline-success" : "btn-outline-secondary") seat-btn"
+                                    @(isAvailable ? "" : "disabled")
+                                    style="width: 50px; margin: 2px;">
+                                @seatNum
+                            </button>
+                            
+                            if (letter == "B") { <span>&nbsp;&nbsp;</span> }
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </form>
+</div>
+
+<style>
+.seat-btn:hover:not(:disabled) {
+    background-color: #28a745 !important;
+    color: white;
+}
+</style>

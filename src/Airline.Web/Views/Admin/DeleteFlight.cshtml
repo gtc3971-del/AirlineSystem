@@ -1,0 +1,23 @@
+@model Airline.Web.Models.Flight
+@{
+    ViewData["Title"] = "Удалить рейс";
+}
+
+<div class="container mt-5">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h4>⚠️ Подтверждение удаления</h4>
+        </div>
+        <div class="card-body">
+            <p>Вы уверены, что хотите удалить рейс <strong>@Model.FlightNumber</strong>?</p>
+            <p>Маршрут: @Model.DepartureAirportCode → @Model.ArrivalAirportCode</p>
+            <p>Дата: @Model.DepartureTime.ToString("dd.MM.yyyy HH:mm")</p>
+            
+            <form asp-action="DeleteFlight" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">Удалить</button>
+                <a asp-action="Flights" class="btn btn-secondary">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+@model Airline.Web.Models.Aircraft
+@{ ViewData["Title"] = "Добавить самолёт"; }
+<div class="container mt-5">
+    <h2>➕ Новый самолёт</h2>
+    <form asp-action="CreateAircraft" class="card p-4">
+        <div class="row g-3">
+            <div class="col-md-6"><label>Бортовой номер</label><input asp-for="TailNumber" class="form-control" required /></div>
+            <div class="col-md-6"><label>Модель</label><input asp-for="Model" class="form-control" required /></div>
+            <div class="col-md-6"><label>Вместимость</label><input asp-for="TotalSeats" type="number" class="form-control" value="150" required /></div>
+            <div class="col-md-6"><label>Тех. статус</label>
+                <select asp-for="TechnicalStatus" class="form-select">
+                    <option>Active</option><option>Maintenance</option><option>Retired</option>
+                </select>
+            </div>
+            <div class="col-12"><button type="submit" class="btn btn-success">Сохранить</button> <a asp-action="Aircrafts" class="btn btn-secondary">Отмена</a></div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,64 @@
+@model Airline.Web.Models.Flight
+@{
+    // Безопасное получение списка аэропортов
+    var airports = ViewBag.Airports as List<Airline.Web.Models.Airport> ?? new List<Airline.Web.Models.Airport>();
+}
+
+<div class="container mt-5">
+    <h2>✏️ Редактирование рейса @Model.FlightNumber</h2>
+    
+    <form asp-action="EditFlight" method="post" class="card p-4">
+        <input type="hidden" asp-for="Id" />
+        
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Номер рейса</label>
+                <input asp-for="FlightNumber" class="form-control" required />
+            </div>
+            
+            <div class="col-md-3">
+                <label class="form-label">Аэропорт вылета</label>
+                <select asp-for="DepartureAirportCode" class="form-select" required>
+                    @foreach (var airport in airports)
+                    {
+                        <option value="@airport.Code" selected="@(airport.Code == Model.DepartureAirportCode)">
+                            @airport.Code - @airport.City
+                        </option>
+                    }
+                </select>
+            </div>
+            
+            <div class="col-md-3">
+                <label class="form-label">Аэропорт прилёта</label>
+                <select asp-for="ArrivalAirportCode" class="form-select" required>
+                    @foreach (var airport in airports)
+                    {
+                        <option value="@airport.Code" selected="@(airport.Code == Model.ArrivalAirportCode)">
+                            @airport.Code - @airport.City
+                        </option>
+                    }
+                </select>
+            </div>
+            
+            <div class="col-md-6">
+                <label class="form-label">Время вылета</label>
+                <input asp-for="DepartureTime" type="datetime-local" class="form-control" required />
+            </div>
+            
+            <div class="col-md-6">
+                <label class="form-label">Время прилёта</label>
+                <input asp-for="ArrivalTime" type="datetime-local" class="form-control" required />
+            </div>
+            
+            <div class="col-md-4">
+                <label class="form-label">Свободных мест</label>
+                <input asp-for="AvailableSeats" type="number" class="form-control" required />
+            </div>
+            
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">Сохранить</button>
+                <a asp-action="Flights" class="btn btn-secondary">Отмена</a>
+            </div>
+        </div>
+    </form>
+</div>

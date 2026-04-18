@@ -1,0 +1,24 @@
+@model IEnumerable<dynamic>
+@{ ViewData["Title"] = "Загрузка рейсов"; }
+<div class="container mt-5">
+    <h2>📊 Загрузка рейсов (последние 30 дней)</h2>
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr><th>Рейс</th><th>Маршрут</th><th>Вылет</th><th>Мест продано</th><th>Всего мест</th><th>Загрузка</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model) {
+                var color = r.Load >= 80 ? "bg-success" : r.Load >= 50 ? "bg-warning" : "bg-danger";
+                <tr>
+                    <td><strong>@r.FlightNumber</strong></td>
+                    <td>@r.Route</td>
+                    <td>@r.Departure</td>
+                    <td>@r.Sold</td>
+                    <td>@r.Total</td>
+                    <td><span class="badge @color">@r.Load%</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Reports" class="btn btn-secondary">← К отчётам</a>
+</div>

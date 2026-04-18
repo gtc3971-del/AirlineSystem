@@ -1,0 +1,154 @@
+@model List<Airline.Web.Dtos.FlightSearchDto>
+
+@{
+    ViewData["Title"] = "Результаты поиска";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">✈️ Доступные рейсы</h2>
+    
+    <a asp-action="Search" class="btn btn-outline-secondary mb-3">← Назад к поиску</a>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (Model == null || Model.Count == 0)
+    {
+        <div class="alert alert-info">Рейсы не найдены. Попробуйте изменить параметры поиска.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Рейс</th>
+                        <th>Откуда → Куда</th>
+                        <th>Вылет</th>
+                        <th>Прилёт</th>
+                        <th>Свободных мест</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var flight in Model)
+                    {
+                        <tr>
+                            <td><strong>@flight.FlightNumber</strong></td>
+                            <td>@flight.DepartureAirport → @flight.ArrivalAirport</td>
+                            <td>@flight.DepartureTime.ToString("dd.MM HH:mm")</td>
+                            <td>@flight.ArrivalTime.ToString("dd.MM HH:mm")</td>
+                            <td><span class="badge bg-success fs-6">@flight.AvailableSeats</span></td>
+                            <td>
+                                @if (flight.AvailableSeats > 0)
+                                {
+                                    <!-- Кнопка вызывает модальное окно и передает ID рейса -->
+                                    <a asp-action="ViewSeats" asp-route-flightId="@flight.Id" class="btn btn-primary btn-sm">
+    Выбрать место
+</a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Нет мест</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО (Вынесено за пределы таблицы, одно для всех) -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Бронирование</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      
+      <!-- AJAX-форма -->
+      <form id="ajaxBookingForm">
+          <div class="modal-body">
+              <input type="hidden" name="flightId" id="hiddenFlightId" />
+              
+              <div class="mb-3">
+                  <label class="form-label">ФИО пассажира</label>
+                  <input type="text" class="form-control" name="passengerName" required />
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">Номер места</label>
+                  <input type="text" class="form-control" name="seatNumber" required />
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+              <button type="submit" class="btn btn-success" id="btnSubmitBooking">Подтвердить</button>
+          </div>
+      </form>
+    </div>
+  </div>
+<script>
+    document.getElementById('ajaxBookingForm').addEventListener('submit', async function(e) {
+        e.preventDefault(); // Отменяем стандартную отправку формы
+
+        const btn = document.getElementById('btnSubmitBooking');
+        btn.disabled = true;
+        btn.textContent = 'Обработка...';
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('/Flight/Book', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert(result.message);
+                // Закрываем модальное окно
+                const modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+                modal.hide();
+                
+                // Обновляем счётчик мест в таблице (находим строку по ID рейса)
+                const row = document.querySelector(`button[data-flight-id="${result.flightId}"]`).closest('tr');
+                const badge = row.querySelector('.badge.bg-success');
+                badge.textContent = parseInt(badge.textContent) - 1;
+                
+                // Если мест стало 0, меняем кнопку
+                if (parseInt(badge.textContent) === 0) {
+                    badge.classList.remove('bg-success');
+                    badge.classList.add('bg-secondary');
+                    row.querySelector('button[data-flight-id]').outerHTML = '<span class="text-muted">Нет мест</span>';
+                }
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            alert('Ошибка сети: ' + error.message);
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Подтвердить';
+        }
+    });
+</script>
+</div>
+

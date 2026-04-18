@@ -1,0 +1,15 @@
+C:\Windows\system32\AirlineSystem\src\Airline.Business\bin\Debug\net9.0\Airline.Business.deps.json
+C:\Windows\system32\AirlineSystem\src\Airline.Business\bin\Debug\net9.0\Airline.Business.dll
+C:\Windows\system32\AirlineSystem\src\Airline.Business\bin\Debug\net9.0\Airline.Business.pdb
+C:\Windows\system32\AirlineSystem\src\Airline.Business\bin\Debug\net9.0\Airline.Data.dll
+C:\Windows\system32\AirlineSystem\src\Airline.Business\bin\Debug\net9.0\Airline.Data.pdb
+C:\Windows\system32\AirlineSystem\src\Airline.Business\obj\Debug\net9.0\Airline.Business.csproj.AssemblyReference.cache
+C:\Windows\system32\AirlineSystem\src\Airline.Business\obj\Debug\net9.0\Airline.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Windows\system32\AirlineSystem\src\Airline.Business\obj\Debug\net9.0\Airline.Business.AssemblyInfoInputs.cache
+C:\Windows\system32\AirlineSystem\src\Airline.Business\obj\Debug\net9.0\Airline.Business.AssemblyInfo.cs
+C:\Windows\system32\AirlineSystem\src\Airline.Business\obj\Debug\net9.0\Airline.Business.csproj.CoreCompileInputs.cache
+C:\Windows\system32\AirlineSystem\src\Airline.Business\obj\Debug\net9.0\Airline..BF28CFB4.Up2Date
+C:\Windows\system32\AirlineSystem\src\Airline.Business\obj\Debug\net9.0\Airline.Business.dll
+C:\Windows\system32\AirlineSystem\src\Airline.Business\obj\Debug\net9.0\refint\Airline.Business.dll
+C:\Windows\system32\AirlineSystem\src\Airline.Business\obj\Debug\net9.0\Airline.Business.pdb
+C:\Windows\system32\AirlineSystem\src\Airline.Business\obj\Debug\net9.0\ref\Airline.Business.dll

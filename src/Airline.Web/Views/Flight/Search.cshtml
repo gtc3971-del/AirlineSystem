@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Поиск рейсов";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">🔍 Поиск доступных рейсов</h2>
+    
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <form asp-controller="Flight" asp-action="Search" method="post" class="card p-4 shadow-sm">
+        <div class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">Откуда (IATA код)</label>
+                <input type="text" name="from" class="form-control" placeholder="SVO" required />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Куда (IATA код)</label>
+                <input type="text" name="to" class="form-control" placeholder="LED" required />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Дата вылета</label>
+                <input type="date" name="date" class="form-control" required />
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Найти рейсы</button>
+            </div>
+        </div>
+    </form>
+</div>

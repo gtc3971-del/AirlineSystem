@@ -1,0 +1,28 @@
+@model List<Airline.Web.Models.Aircraft>
+@{ ViewData["Title"] = "Парк воздушных судов"; }
+
+<div class="container mt-5">
+    <h2>✈️ Управление парком ВС</h2>
+    @if (TempData["Success"] != null) { <div class="alert alert-success">@TempData["Success"]</div> }
+    <a asp-action="CreateAircraft" class="btn btn-primary mb-3">+ Добавить самолёт</a>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr><th>Бортовой номер</th><th>Модель</th><th>Вместимость</th><th>Статус</th><th>Действия</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td><strong>@a.TailNumber</strong></td>
+                    <td>@a.Model</td>
+                    <td><span class="badge bg-info">@a.TotalSeats мест</span></td>
+                    <td>@a.TechnicalStatus</td>
+                    <td>
+                        <a asp-action="EditAircraft" asp-route-id="@a.Id" class="btn btn-sm btn-warning">Изменить</a>
+                        <a asp-action="DeleteAircraft" asp-route-id="@a.Id" class="btn btn-sm btn-danger">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

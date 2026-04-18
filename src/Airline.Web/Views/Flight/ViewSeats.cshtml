@@ -1,0 +1,95 @@
+@model List<Airline.Web.Models.Seat>
+
+@{
+    ViewData["Title"] = "Выбор места";
+    var flightInfo = ViewBag.FlightInfo;
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>✈️ Выберите место: @flightInfo</h2>
+        <a asp-action="Search" class="btn btn-outline-secondary">← Назад к поиску</a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <!-- Легенда -->
+    <div class="mb-4 p-3 bg-light rounded">
+        <span class="badge bg-success p-2 me-3">✅ Свободно</span>
+        <span class="badge bg-danger p-2 me-3">❌ Занято</span>
+        <span class="text-muted ms-2">Нажмите на зелёное место, чтобы забронировать</span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <!-- Схема самолета -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white text-center">
+                    САЛОН САМОЛЕТА
+                </div>
+                <div class="card-body text-center">
+                    
+                    <!-- Заголовки рядов -->
+                    <div class="row mb-2 fw-bold">
+                        <div class="col-2">Ряд</div>
+                        <div class="col-10">
+                            <span class="me-4">A</span>
+                            <span class="me-4">B</span>
+                            <span class="me-4 mx-4">C</span>
+                            <span>D</span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Генерация мест -->
+                    @for (int row = 1; row <= 15; row++)
+                    {
+                        <div class="row mb-2 align-items-center">
+                            <div class="col-2 fw-bold">@row</div>
+                            <div class="col-10 d-flex justify-content-around">
+                                @foreach (var letter in new[] { "A", "B", "C", "D" })
+                                {
+                                    var seatNum = $"{row}{letter}";
+                                    var seat = Model.FirstOrDefault(s => s.SeatNumber == seatNum);
+                                    
+                                    if (seat != null && seat.Status == "Available")
+                                    {
+                                        <!-- Форма для бронирования -->
+                                        <form method="post" asp-action="Book" class="d-inline">
+                                            <input type="hidden" name="flightId" value="@Model.First().FlightId" />
+                                            <input type="hidden" name="seatNumber" value="@seatNum" />
+                                            <input type="hidden" name="passengerName" value="Пассажир @seatNum" />
+                                            
+                                            <button type="submit" class="btn btn-sm btn-outline-success rounded-circle" 
+                                                    style="width: 45px; height: 45px;" 
+                                                    title="Место @seatNum">
+                                                @seatNum
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <!-- Занятое место -->
+                                        <button class="btn btn-sm btn-outline-danger rounded-circle" 
+                                                disabled style="width: 45px; height: 45px; opacity: 0.5;">
+                                            @seatNum
+                                        </button>
+                                    }
+
+                                    if (letter == "B") { <span class="mx-3">&nbsp;</span> } <!-- Проход -->
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

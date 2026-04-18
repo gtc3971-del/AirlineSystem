@@ -1,0 +1,24 @@
+@{ ViewData["Title"] = "Отчёты"; }
+<div class="container mt-5">
+    <h2>📈 Аналитика и отчёты</h2>
+    <div class="row g-4 mt-3">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h4>👥 Пассажиропоток</h4>
+                    <p class="text-muted">Продажи билетов по направлениям</p>
+                    <a asp-action="PassengerFlow" class="btn btn-primary">Открыть отчёт</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h4>📊 Загрузка рейсов</h4>
+                    <p class="text-muted">Процент заполняемости бортов</p>
+                    <a asp-action="FlightLoad" class="btn btn-success">Открыть отчёт</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
